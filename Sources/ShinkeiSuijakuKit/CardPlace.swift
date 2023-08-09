@@ -28,11 +28,11 @@ public class CardPlace: Hashable, CustomDebugStringConvertible {
     }
 
     func open() throws -> Card {
-        isOpen = true
-
         guard let card else {
             throw NoCardOnPlaceError()
         }
+
+        isOpen = true
 
         return card
     }

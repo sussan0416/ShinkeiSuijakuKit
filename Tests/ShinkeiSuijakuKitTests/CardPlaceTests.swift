@@ -28,4 +28,14 @@ final class CardPlaceTests: XCTestCase {
         XCTAssertNotEqual(originalHashValue, afterPickedHashValue)
         XCTAssertNotEqual(afterOpenedHashValue, afterPickedHashValue)
     }
+
+    func test_Cardがなくなった場所を開こうとするとエラー_isOpenは変化なし() {
+        let card = Card(label: "A", group: .init(identifier: "A"))
+        let place = CardPlace(card: card)
+
+        let _ = place.pickCard()
+
+        XCTAssertThrowsError(try place.open())
+        XCTAssertFalse(place.isOpen)
+    }
 }
