@@ -3,8 +3,8 @@ import Foundation
 /// 神経衰弱ゲーム
 public class ShinkeiSuijakuGame {
     public let players: [Player]
-    public var cards: [Card]
-    public var cardPlaces: [CardPlace]
+    public private(set) var cards: [Card]
+    public private(set) var cardPlaces: [CardPlace]
 
     public init(players: [Player], cards: [Card]) {
         self.players = players
@@ -92,13 +92,17 @@ public class ShinkeiSuijakuGame {
     // MARK: - Open a card
 
     public func open(place: CardPlace) throws -> Card {
-        guard cardPlaces.filter({ $0.isOpen }).count < 2 else {
+        guard openedPlaces().count < 2 else {
             throw MultipleAttemptError()
         }
 
         let card = try place.open()
 
         return card
+    }
+
+    private func openedPlaces() -> [CardPlace] {
+        cardPlaces.filter { $0.isOpen }
     }
 
     // MARK: - End a turn
@@ -121,10 +125,6 @@ public class ShinkeiSuijakuGame {
 
         shouldChangePlayer = true
         return .unmatched
-    }
-
-    private func openedPlaces() -> [CardPlace] {
-        cardPlaces.filter { $0.isOpen }
     }
 
     private func openedCardsAreMatched() -> Bool {
