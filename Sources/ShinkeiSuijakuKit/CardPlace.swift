@@ -13,17 +13,20 @@ public class CardPlace: ObservableObject, Hashable, CustomDebugStringConvertible
     }
 
     private let id: UUID
-    private(set) var card: Card?
+    private(set) var card: Card? {
+        didSet {
+            hasCard = card != nil
+        }
+    }
 
     @Published public private(set) var isOpen: Bool
 
-    var hasCard: Bool {
-        card != nil
-    }
+    @Published public private(set) var hasCard: Bool
 
     init(card: Card) {
         self.id = UUID()
         self.card = card
+        self.hasCard = true
         self.isOpen = false
     }
 

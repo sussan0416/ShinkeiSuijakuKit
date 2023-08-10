@@ -38,4 +38,15 @@ final class CardPlaceTests: XCTestCase {
         XCTAssertThrowsError(try place.open())
         XCTAssertFalse(place.isOpen)
     }
+
+    func test_初期化時はhasCardはtrue_pick後はhasCardはfalse() {
+        let card = Card(label: "A", group: .init(identifier: "A"))
+        let place = CardPlace(card: card)
+
+        XCTAssertTrue(place.hasCard)
+
+        let _ = place.pickCard()
+
+        XCTAssertFalse(place.hasCard)
+    }
 }
