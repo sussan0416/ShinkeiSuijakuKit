@@ -1,7 +1,7 @@
 import Foundation
 
 /// カードが置かれている場所
-public class CardPlace: Hashable, CustomDebugStringConvertible {
+public class CardPlace: ObservableObject, Hashable, CustomDebugStringConvertible {
     public static func == (lhs: CardPlace, rhs: CardPlace) -> Bool {
         lhs.id == rhs.id
     }
@@ -15,7 +15,7 @@ public class CardPlace: Hashable, CustomDebugStringConvertible {
     private let id: UUID
     private(set) var card: Card?
 
-    public var isOpen: Bool
+    @Published public private(set) var isOpen: Bool
 
     var hasCard: Bool {
         card != nil
