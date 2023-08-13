@@ -1,7 +1,7 @@
 import Foundation
 
 /// プレイヤー
-public class Player: Identifiable, Equatable {
+public class Player: ObservableObject, Identifiable, Equatable {
     public static func == (lhs: Player, rhs: Player) -> Bool {
         lhs.id == rhs.id
     }
@@ -10,8 +10,8 @@ public class Player: Identifiable, Equatable {
         ObjectIdentifier(self)
     }
 
-    public let name: String
-    public var matchedCards: [Card]
+    @Published public var name: String
+    @Published public private(set) var matchedCards: [Card]
 
     public init(name: String) {
         self.name = name
