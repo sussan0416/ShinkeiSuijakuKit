@@ -6,12 +6,14 @@ public class Player: Identifiable, Equatable {
         lhs.id == rhs.id
     }
 
-    public let id: UUID
+    public var id: ObjectIdentifier {
+        ObjectIdentifier(self)
+    }
+
     public let name: String
     public var matchedCards: [Card]
 
     public init(name: String) {
-        self.id = UUID()
         self.name = name
         self.matchedCards = []
     }
